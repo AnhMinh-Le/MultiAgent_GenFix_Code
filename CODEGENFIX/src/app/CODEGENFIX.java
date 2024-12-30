@@ -9,7 +9,7 @@ public class CODEGENFIX extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/codegenfix/GENCODE.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/app/GENCODE.fxml"));
         Scene scene = new Scene(loader.load(), 850, 588);
         primaryStage.setTitle("Code Generator");
         primaryStage.setScene(scene);
