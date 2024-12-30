@@ -25,3 +25,8 @@ replay_pid*
 
 *.pyc
 *.env
+/CODEGENFIX/dist/
+/MultiAgent_GenFix_Code/nbproject/private/
+/JavaFXApplication9/nbproject/private/
+/MultiAgent_GenFix_Code/build/
+/MultiAgent_GenFix_Code/dist/
