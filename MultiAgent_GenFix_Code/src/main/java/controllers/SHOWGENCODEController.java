@@ -55,7 +55,9 @@ public class SHOWGENCODEController {
             }
     }
     public void displayGeneratedCode(String code) {
-        coteTextArea.setText(code);
+        String newCode = code.replace("\\n", "\n").replace("\\t","\t");
+//        System.out.println(newCode);
+        coteTextArea.setText(newCode);
     }
 
     private void saveCodeToFile() {

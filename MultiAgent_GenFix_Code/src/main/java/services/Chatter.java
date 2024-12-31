@@ -35,12 +35,14 @@ public class Chatter {
         return systemMessage;
     }
 
-    private static String escapeJson(String input) {
+    public static String escapeJson(String input) {
         if (input == null) {
             return "";
         }
-        return input.replace("\"", "\\\"") // Escape double quotes
-                .replace("\n", "\\n") // Escape newlines
+        return input // Escape backslashes
+                .replace("\"", "\\\"") // Escape double quotes
+                .replace("\n", "\\n")  // Escape newlines
+                .replace("\r", "")     // Remove carriage returns
                 .replace("\t", "\\t"); // Escape tabs
     }
 
