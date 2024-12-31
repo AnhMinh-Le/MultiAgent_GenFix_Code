@@ -2,6 +2,7 @@ package main.java.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
@@ -12,6 +13,10 @@ import java.io.File;
 import javafx.scene.control.Alert;
 public class FIXCODEController {
 
+    @FXML
+    private ChoiceBox<String> choicebox;
+    private final String[] language ={"java","python","C","C++"};
+    private String myLanguage;
     @FXML
     private Button browseButton1;
     @FXML
@@ -24,13 +29,18 @@ public class FIXCODEController {
     private Button gencodebutton;
     @FXML
     private Button fixcodebutton;
-
+    
     @FXML
     public void initialize() {
+        choicebox.getItems().addAll(language);
+        choicebox.setOnAction(e -> getlanguage());
         gencodebutton.setOnAction(e -> opengencode());
         fixcodebutton.setOnAction(e -> openfixcode());
         browseButton1.setOnAction(e -> browseFileCode(selectedFileLabel1));
         nextButton.setOnAction(e -> opennextpage());
+    }
+    private void getlanguage(){
+        myLanguage = choicebox.getValue();
     }
     private void opennextpage(){
         String file1 = selectedFileLabel1.getText();

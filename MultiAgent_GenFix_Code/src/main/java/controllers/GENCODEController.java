@@ -117,7 +117,7 @@ public class GENCODEController {
 
         if ((file1.isEmpty() || file1.equals("No file selected")) &&
             (file2.isEmpty() || file2.equals("No file selected"))) {
-            showAlert("Please select at least one file (UML or Task Description).");
+            showAlert("Please select one file (UML or Task Description).");
         } else {
             try {
                 Stage currentStage = (Stage) generateButton.getScene().getWindow();
