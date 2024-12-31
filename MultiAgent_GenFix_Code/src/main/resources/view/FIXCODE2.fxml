@@ -75,7 +75,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="noteTextArea" layoutX="20.0" layoutY="241.0" prefHeight="282.0" prefWidth="464.0" styleClass="round" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                        <TextArea fx:id="noteFeedBackArea" layoutX="20.0" layoutY="241.0" prefHeight="149.0" prefWidth="464.0" styleClass="round" stylesheets="@../style/style.css" AnchorPane.bottomAnchor="77.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                         <Button fx:id="fixbutton" layoutX="177.0" layoutY="388.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="150.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="FIX CODE" textFill="WHITE" AnchorPane.bottomAnchor="21.600000000000023">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -84,17 +84,13 @@
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
                         <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="342.0" prefHeight="34.0" prefWidth="471.0" spacing="10.0" />
-                        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="50.0" spacing="10.0">
-                           <children>
-                              <Button fx:id="browseButton1" mnemonicParsing="false" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;" styleClass="browse_button" stylesheets="@../style/style.css" text="Browse" />
-                              <Label fx:id="selectedFileLabel1" style="-fx-text-fill: #7f8c8d;" text="No file selected" />
-                           </children>
-                        </HBox>
-                        <Label layoutX="20.0" layoutY="96.0" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="or">
+                        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="50.0" spacing="10.0" />
+                        <Label layoutX="20.0" layoutY="228.0" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="User feedback">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
+                        <TextArea fx:id="noteTaskDescriptionArea" layoutX="20.0" layoutY="50.0" prefHeight="161.0" prefWidth="464.0" />
                      </children>
                      <styleClass>
                         <String fx:value="shadow" />

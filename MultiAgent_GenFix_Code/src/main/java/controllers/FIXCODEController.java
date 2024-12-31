@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import javafx.scene.control.Alert;
 public class FIXCODEController {
 
@@ -42,6 +46,10 @@ public class FIXCODEController {
     private void getlanguage(){
         myLanguage = choicebox.getValue();
     }
+    private String openfile(String path) throws IOException{
+        Path filePath = Path.of(path);
+        return Files.readString(filePath, StandardCharsets.UTF_8);
+    }
     private void opennextpage(){
         String file1 = selectedFileLabel1.getText();
         if ((file1.isEmpty() || file1.equals("No file selected")) && noteTextArea.getText().isEmpty()){
@@ -49,10 +57,18 @@ public class FIXCODEController {
             return;
         }
         try {
+
             Stage currentStage = (Stage) nextButton.getScene().getWindow();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/FIXCODE2.fxml"));
             Stage showGenStage = new Stage();
-            showGenStage.setScene(new Scene(loader.load()));
+            showGenStage.setScene(new Scene(loader.load()));            
+            FIXCODEController2 fixcode2 = loader.getController();
+            if (noteTextArea.getText().isEmpty() == false){
+                fixcode2.getCode(noteTextArea.getText());
+            }else{
+                fixcode2.getCode(openfile(CodeFilePath));
+            }
+            fixcode2.getlanguage(myLanguage);
             showGenStage.show();
             currentStage.close();  // Close the current stage
         } catch (Exception e) {

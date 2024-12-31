@@ -17,40 +17,43 @@ import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
 public class FIXCODEController2 {
     @FXML
-    private Button browseButton1;
+    private TextArea noteTaskDescriptionArea;
     @FXML
-    private TextArea noteTextArea;
+    private TextArea noteFeedBackArea;
     @FXML
     private Button fixbutton;
-    @FXML
-    private Label selectedFileLabel1;
     @FXML
     private Button gencodebutton;
     @FXML
     private Button fixcodebutton;
-    private String TDFilePath;
-    @FXML
+
+    private String mycode;
+    private String mylanguage;
     public void initialize() {
         gencodebutton.setOnAction(e -> opengencode());
         fixcodebutton.setOnAction(e -> openfixcode());
-        browseButton1.setOnAction(e -> browseFile(selectedFileLabel1));
+//        browseButton1.setOnAction(e -> browseFile(selectedFileLabel1));
         fixbutton.setOnAction(e -> printfixedcode());
     }
     private String openfile(String path) throws IOException{
         Path filePath = Path.of(path);
         return Files.readString(filePath, StandardCharsets.UTF_8);
     }
-    private String fixcode(String language) throws IOException{
-        Fixer code = new Fixer(language);
-        String Description = openfile(TDFilePath);
-        String GeneratedCode = code.generateCode(Description, language);
-        return GeneratedCode;
+    private String printfixcode(String inputcode, String taskDescription, String report, String staticAnalysisErrors) throws IOException{
+        Fixer code = new Fixer(mylanguage);
+        String finalcode = code.fixCode(inputcode, taskDescription, report, staticAnalysisErrors);
+        return finalcode;
+    }
+    public void getCode(String code){
+        mycode=code;
+    }
+    public void getlanguage(String language){
+        mylanguage = language;
     }
     private void printfixedcode(){
-        String file1 = selectedFileLabel1.getText();
 
-        if ((file1.isEmpty() || file1.equals("No file selected")) && noteTextArea.getText().isEmpty()) {
-            showAlert("Please select at least one file .");
+        if ( noteFeedBackArea.getText().isEmpty() && noteTaskDescriptionArea.getText().isEmpty()) {
+            showAlert("Please give task description and feedback .");
         } else {
             try {
                 Stage currentStage = (Stage) fixbutton.getScene().getWindow();
@@ -59,9 +62,12 @@ public class FIXCODEController2 {
                 showGenStage.setScene(new Scene(loader.load()));
                 showGenStage.show();
 
-                SHOWGENCODEController showGenController = loader.getController();
-                String code = fixcode("java"); // Take the generated code
-                showGenController.displayGeneratedCode(code);
+                SHOWFIXCODEController showFixController = loader.getController();
+                String description,feedback;
+                description =noteTaskDescriptionArea.getText();
+                feedback=noteFeedBackArea.getText();
+                String code = printfixcode(mycode,description,feedback,""); // Take the generated code
+                showFixController.displayFixedCode(code);
 
                 currentStage.close();  // Close the current stage
             } catch (Exception e) {
@@ -94,17 +100,17 @@ public class FIXCODEController2 {
             e.printStackTrace();
         }
     }
-    private void browseFile(Label label) {
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(browseButton1.getScene().getWindow());
-
-        if (selectedFile != null) {
-            TDFilePath = selectedFile.getAbsolutePath();
-            label.setText(selectedFile.getName());
-            showAlert("File selected: " + TDFilePath);
-        }
-    }
-    
+//    private void browseFile(Label label) {
+//        FileChooser fileChooser = new FileChooser();
+//        File selectedFile = fileChooser.showOpenDialog(browseButton1.getScene().getWindow());
+//
+//        if (selectedFile != null) {
+//            TDFilePath = selectedFile.getAbsolutePath();
+//            label.setText(selectedFile.getName());
+//            showAlert("File selected: " + TDFilePath);
+//        }
+//    }
+//    
     
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

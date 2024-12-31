@@ -54,8 +54,9 @@ public class SHOWFIXCODEController {
                 e.printStackTrace();
             }
     }
-    public void displayGeneratedCode(String code) {
-        coteTextArea.setText(code);
+    public void displayFixedCode(String code) {
+        String newCode = code.replace("\\n", "\n").replace("\\t","\t");
+        coteTextArea.setText(newCode);
     }
 
     private void saveCodeToFile() {
