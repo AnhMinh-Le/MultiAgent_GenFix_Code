@@ -1,0 +1,59 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Dec 28, 2024, 11:08:16 AM
+    Author     : giach
+*/
+
+.left_side_panel{
+    -fx-background-color: #353A56
+}
+.white_background{
+    -fx-background-color: #ffffff
+}
+.round{
+    -fx-background-radius: 8
+}
+.shadow{
+    -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.4), 6,0,0,0);
+}
+
+.gen_fix_button{
+    -fx-background-color:#1a2d42;
+    -fx-background-radius: 50;
+    -fx-transition: -fx-scale-x 0.4s, -fx-scale-y 0.4s
+}
+.gen_fix_button:hover{
+    /*-fx-background-color: #522c5d;*/
+    -fx-opacity: 0.7;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+.browse_button:hover{
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+.blue1{
+    -fx-background-color:#d4d8dd
+}
+.blue2{
+    -fx-background-color:#c0c8ca
+}
+.blue3{
+    -fx-background-color:#aab7b7
+}
+.blue4{
+    -fx-background-color:#2e4156
+}
+.blue5{
+    -fx-background-color:#1a2d42
+}
+.selected{
+    -fx-background-color: #fffaa1
+}
+
+.gradient-background {
+    -fx-background-color:linear-gradient(to bottom ,#aab7b7 ,#2e4156,#1a2d42);
+}
