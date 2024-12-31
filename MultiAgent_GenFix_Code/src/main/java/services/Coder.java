@@ -92,7 +92,7 @@ public class Coder extends Chatter {
 //    }
 
     public static void main(String[] args) {
-        String outputDirectory = "E:\\Github Repo\\OOP_MultiAgen_GenFix_Code\\data\\generated_code";
+        String outputDirectory = "D:/HUST";
         String productDescription = """
             The system is a library management platform designed to handle books, borrowers, and loans. The platform includes the following components:
 

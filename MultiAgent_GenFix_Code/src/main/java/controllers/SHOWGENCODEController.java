@@ -62,7 +62,11 @@ public class SHOWGENCODEController {
 
     private void saveCodeToFile() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Java Files", "*.java"));
+        fileChooser.getExtensionFilters().addAll(
+        	    new FileChooser.ExtensionFilter("Java Files", "*.java"),
+        	    new FileChooser.ExtensionFilter("Python Files", "*.py"),
+        	    new FileChooser.ExtensionFilter("C Files", "*.c"),
+        	    new FileChooser.ExtensionFilter("C++ Files", "*.cpp"));
         File saveFile = fileChooser.showSaveDialog(saveButton.getScene().getWindow());
 
         if (saveFile != null) {
