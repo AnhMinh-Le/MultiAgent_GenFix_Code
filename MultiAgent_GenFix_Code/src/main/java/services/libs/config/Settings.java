@@ -1,3 +1,5 @@
+package main.java.services.libs.config;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -7,22 +9,22 @@ public class Settings {
     private String OPENAI_API_KEY;
 
     private Settings() {
-        load Settings();
+        loadSettings();
     }
 
     public static Settings getInstance() {
-        if (instance = null) {
-            instance = new Settings;
+        if (instance == null) {
+            instance = new Settings();
         }
         return instance;
     }
 
     private void loadSettings() {
-        OPENAI_API_KEY = System.getenv("OPENAI_API_KEY")
+        OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
     }
 
     public String getOPENAI_API_KEY() {
-        return OPENAI_API_KEY
+        return OPENAI_API_KEY;
     }
 
 

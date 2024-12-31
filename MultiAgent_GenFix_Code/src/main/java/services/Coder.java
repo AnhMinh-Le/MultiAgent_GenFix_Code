@@ -1,3 +1,6 @@
+package main.java.services;
+
+import main.java.services.Chatter;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -55,40 +58,38 @@ public class Coder extends Chatter {
         return completion;
     }
 
-    public void generateCode(String productDescription, String language, String outputDir) throws IOException {
+    public String generateCode(String productDescription, String language) throws IOException {
         String userPrompt = getUserPrompt(productDescription, language);
         String fullResponse = chat(userPrompt);
 
-        if (fullResponse == null || fullResponse.isEmpty()) {
-            logger.warning("Received empty or null response from the API.");
-            return;
-        }
+//        if (fullResponse == null || fullResponse.isEmpty()) {
+//            logger.warning("Received empty or null response from the API.");
+//            return;
+//        }
 
-        String code = postprocessCodeCompletion(fullResponse, language);
+        return postprocessCodeCompletion(fullResponse, language);
 
-        if (code.isEmpty()) {
-            logger.warning("No code block found in the response.");
-            return;
-        }
-
-        writeCodeToFile(code, language, outputDir);
+//        if (code.isEmpty()) {
+//            logger.warning("No code block found in the response.");
+//            return;
+//        }
     }
 
-    private void writeCodeToFile(String code, String language, String outputDir) throws IOException {
-        String fileName = "GeneratedCode." + (language.equals("python") ? "py" : "java");
-        File outputFile = new File(outputDir, fileName);
-
-        File parentDir = outputFile.getParentFile();
-        if (!parentDir.exists() && !parentDir.mkdirs()) {
-            throw new IOException("Failed to create directories.");
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
-            writer.write(code);
-        }
-
-        logger.info("Code has been written to: " + outputFile.getAbsolutePath());
-    }
+//    private void writeCodeToFile(String code, String language, String outputDir) throws IOException {
+//        String fileName = "GeneratedCode." + (language.equals("python") ? "py" : "java");
+//        File outputFile = new File(outputDir, fileName);
+//
+//        File parentDir = outputFile.getParentFile();
+//        if (!parentDir.exists() && !parentDir.mkdirs()) {
+//            throw new IOException("Failed to create directories.");
+//        }
+//
+//        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile))) {
+//            writer.write(code);
+//        }
+//
+//        logger.info("Code has been written to: " + outputFile.getAbsolutePath());
+//    }
 
     public static void main(String[] args) {
         String outputDirectory = "E:\\Github Repo\\OOP_MultiAgen_GenFix_Code\\data\\generated_code";
@@ -104,7 +105,7 @@ public class Coder extends Chatter {
 
         try {
             Coder coder = new Coder("java");
-            coder.generateCode(productDescription, "java", outputDirectory);
+            coder.generateCode(productDescription, "java");
         } catch (IOException e) {
             System.err.println("Error while generating code: " + e.getMessage());
         }

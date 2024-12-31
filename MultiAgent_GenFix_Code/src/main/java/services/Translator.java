@@ -1,3 +1,6 @@
+package main.java.services;
+
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -5,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Logger;
 
-a
 public class Translator extends Chatter {
     private static final String TRANSLATION_SYSTEM_MESSAGE = "You are a translator. Translate the following text to English.";
 
