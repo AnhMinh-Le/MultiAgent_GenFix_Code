@@ -13,7 +13,7 @@ public class DescriptionExtractor extends Chatter {
         super("You are an assistant who helps analyze UML diagrams and convert them to textual descriptions", 3, 10);
     }
 
-    public void extractAndSaveDescription(String imagePath, String outputPath) {
+    public String extractAndSaveDescription(String imagePath) {
         try {
             // Initialize Tesseract OCR
             Tesseract tesseract = new Tesseract();
@@ -36,25 +36,27 @@ public class DescriptionExtractor extends Chatter {
 
             // Send prompt to the Chat API
             String response = chat(prompt);
+            return response;
 
             // Save the description to file
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
-                writer.write(response);
-            }
+            //try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
+                //writer.write(response);
+            //}
 
         } catch (TesseractException e) {
             System.err.println("Error during OCR: " + e.getMessage());
-        } catch (IOException e) {
-            System.err.println("Error writing to file: " + e.getMessage());
-        }
+            return "Error during OCR: " + e.getMessage();
+        } //catch (IOException e) {
+            //System.err.println("Error writing to file: " + e.getMessage());
+        //}
     }
 
     public static void main(String[] args) {
     	
         DescriptionExtractor extractor = new DescriptionExtractor();
         String imagePath = "D:/HUST/Test.jpg";
-        String outputPath = "D:/HUST/testdes.txt";
-        
-        extractor.extractAndSaveDescription(imagePath, outputPath);
+        String outputPath = "D:/HUST/new1.txt";
+     
+        System.out.printf(extractor.extractAndSaveDescription(imagePath));
     }
 }

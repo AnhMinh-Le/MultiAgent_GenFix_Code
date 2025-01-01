@@ -1,6 +1,6 @@
 package main.java.controllers;
 
-import main.java.services.Coder;
+import main.java.services.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,7 +36,7 @@ public class GENCODEController{
 
     @FXML
     private ChoiceBox<String> choicebox;
-    private final String[] language ={"java","python","C","C++"};
+    private final String[] language ={"JAVA","PYTHON"};
     private String myLanguage;
     public void initialize() {
     	
@@ -51,19 +51,20 @@ public class GENCODEController{
         myLanguage = choicebox.getValue();
     }
     
-    private String UMLFilePath;
+    private String UMLFilePath =  "";
     private void browseFileUML(Label label) {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(browseButton1.getScene().getWindow());
 
         if (selectedFile != null) {
+     
             UMLFilePath = selectedFile.getAbsolutePath();
             label.setText(UMLFilePath);
 //            label.setText(selectedFile.getName());
             showAlert("File selected: " + UMLFilePath);
         }
     }
-    private String TDFilePath;
+    private String TDFilePath = "";
     private void browseFileTD(Label label) {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(browseButton2.getScene().getWindow());
@@ -81,7 +82,15 @@ public class GENCODEController{
     }
     private String generatecode(String language) throws IOException{
         Coder code = new Coder(language);
-        String Description = openfile(TDFilePath);
+        String Description = "";
+        if(UMLFilePath == "") {
+            Description = openfile(TDFilePath);
+        }
+        else {
+        	DescriptionExtractor extractor = new DescriptionExtractor();
+        	Description = extractor.extractAndSaveDescription(UMLFilePath);
+        }
+        
         String GeneratedCode = code.generateCode(Description, language);
         return GeneratedCode;
     }

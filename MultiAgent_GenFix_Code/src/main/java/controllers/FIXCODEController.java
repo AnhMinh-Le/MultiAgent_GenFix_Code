@@ -20,7 +20,7 @@ public class FIXCODEController{
     private MainSideButtonController mainSideButtonController;
     @FXML
     private ChoiceBox<String> choicebox;
-    private final String[] language ={"java","python","C","C++"};
+    private final String[] language ={"JAVA","PYTHON"};
     private String myLanguage;
     @FXML
     private Button browseButton1;

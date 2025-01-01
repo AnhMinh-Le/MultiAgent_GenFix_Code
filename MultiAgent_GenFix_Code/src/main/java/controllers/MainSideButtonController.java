@@ -11,7 +11,20 @@ public class MainSideButtonController {
     protected Button gencodebutton;
     @FXML
     protected Button fixcodebutton;
-    
+    @FXML
+    protected Button projectstructbutton;
+    private void openstructure() {
+        try {
+            Stage currentStage = (Stage) projectstructbutton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/PROJECTSTRUCT.fxml"));
+            Stage showGenStage = new Stage();
+            showGenStage.setScene(new Scene(loader.load()));
+            showGenStage.show();
+            currentStage.close();  // Close the current stage
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void opengencode() {
         try {
             Stage currentStage = (Stage) gencodebutton.getScene().getWindow();
@@ -39,6 +52,7 @@ public class MainSideButtonController {
     public void initialize() {
     	gencodebutton.setOnAction(e -> opengencode());
         fixcodebutton.setOnAction(e -> openfixcode());
+        projectstructbutton.setOnAction(e -> openstructure());
     }
 
 }

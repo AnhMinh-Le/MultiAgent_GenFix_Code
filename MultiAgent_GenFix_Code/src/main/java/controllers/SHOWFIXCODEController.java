@@ -37,9 +37,8 @@ public class SHOWFIXCODEController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
         	    new FileChooser.ExtensionFilter("Java Files", "*.java"),
-        	    new FileChooser.ExtensionFilter("Python Files", "*.py"),
-        	    new FileChooser.ExtensionFilter("C Files", "*.c"),
-        	    new FileChooser.ExtensionFilter("C++ Files", "*.cpp"));
+        	    new FileChooser.ExtensionFilter("Python Files", "*.py")
+        	    );
         File saveFile = fileChooser.showSaveDialog(saveButton.getScene().getWindow());
 
         if (saveFile != null) {
