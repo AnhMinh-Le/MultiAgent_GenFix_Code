@@ -13,7 +13,7 @@ import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
-public class SHOWGENCODEController {
+public class SHOWSTRUCTController {
 	@FXML
     private MainSideButtonController mainSideButtonController;
     @FXML

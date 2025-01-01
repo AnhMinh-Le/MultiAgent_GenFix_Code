@@ -15,8 +15,8 @@ public class MainSideButtonController {
     protected Button projectstructbutton;
     private void openstructure() {
         try {
-            Stage currentStage = (Stage) gencodebutton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/PRJSTRUCT.fxml"));
+            Stage currentStage = (Stage) projectstructbutton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/PROJECTSTRUCT.fxml"));
             Stage showGenStage = new Stage();
             showGenStage.setScene(new Scene(loader.load()));
             showGenStage.show();

@@ -15,13 +15,12 @@ import javafx.scene.control.Alert;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
-public class FIXCODEController2 {
+public class PRJSTRUCTController {
 	@FXML
     private MainSideButtonController mainSideButtonController;
     @FXML
     private TextArea noteTaskDescriptionArea;
     @FXML
-
     private Button createprj;
 
 
@@ -37,7 +36,7 @@ public class FIXCODEController2 {
     }
     private String output(String description) throws IOException{
         ProductAnalyst code = new ProductAnalyst();
-        String finalcode = code.analyzeAndSaveToJson(description)
+        String finalcode = code.analyzeAndSaveToJson(description);
         return finalcode;
     }
     public void getCode(String code){
@@ -49,7 +48,7 @@ public class FIXCODEController2 {
             showAlert("Please give task description and feedback .");
         } else {
             try {
-                Stage currentStage = (Stage) fixbutton.getScene().getWindow();
+                Stage currentStage = (Stage) createprj.getScene().getWindow();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/SHOWSTRUCT.fxml"));
                 Stage showGenStage = new Stage();
                 showGenStage.setScene(new Scene(loader.load()));
