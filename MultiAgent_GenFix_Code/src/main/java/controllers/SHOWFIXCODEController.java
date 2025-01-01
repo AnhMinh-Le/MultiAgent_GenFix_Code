@@ -14,46 +14,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 public class SHOWFIXCODEController {
-
+	@FXML
+    private MainSideButtonController mainSideButtonController;
     @FXML
     private TextArea coteTextArea;
     @FXML
     private Button saveButton;
-    @FXML
-    private Button gencodebutton;
-    @FXML
-    private Button fixcodebutton;
 
     @FXML
     public void initialize() {
         saveButton.setOnAction(e -> saveCodeToFile());
-        gencodebutton.setOnAction(e -> opengencode());
-        fixcodebutton.setOnAction(e -> openfixcode());
+       
     }
-    private void opengencode(){
-        try {
-                Stage currentStage = (Stage) gencodebutton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/GENCODE.fxml"));
-                Stage showGenStage = new Stage();
-                showGenStage.setScene(new Scene(loader.load()));
-                showGenStage.show();
-                currentStage.close();  // Close the current stage
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
-    private void openfixcode(){
-       try {
-                Stage currentStage = (Stage) fixcodebutton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/FIXCODE.fxml"));
-                Stage showGenStage = new Stage();
-                showGenStage.setScene(new Scene(loader.load()));
-                showGenStage.show();
-                currentStage.close();  // Close the current stage
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
+
+   
     public void displayFixedCode(String code) {
         String newCode = code.replace("\\n", "\n").replace("\\t","\t");
         coteTextArea.setText(newCode);

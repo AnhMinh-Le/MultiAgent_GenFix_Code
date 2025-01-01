@@ -18,8 +18,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
 
-public class GENCODEController {
-
+public class GENCODEController{
+	@FXML
+    private MainSideButtonController mainSideButtonController;
     @FXML
     private Button browseButton1;
     @FXML
@@ -32,19 +33,15 @@ public class GENCODEController {
     private Label selectedFileLabel1;
     @FXML
     private Label selectedFileLabel2; 
-    @FXML
-    private Button gencodebutton;
-    @FXML
-    private Button fixcodebutton;
+
     @FXML
     private ChoiceBox<String> choicebox;
     private final String[] language ={"java","python","C","C++"};
     private String myLanguage;
     public void initialize() {
+    	
         choicebox.getItems().addAll(language);
         choicebox.setOnAction(e -> getlanguage());
-        gencodebutton.setOnAction(e -> opengencode());
-        fixcodebutton.setOnAction(e -> openfixcode());
         browseButton1.setOnAction(e -> browseFileUML(selectedFileLabel1));
         browseButton2.setOnAction(e -> browseFileTD(selectedFileLabel2));
         generateButton.setOnAction(e -> printgenerateCode());
@@ -53,30 +50,7 @@ public class GENCODEController {
     private void getlanguage(){
         myLanguage = choicebox.getValue();
     }
-    private void opengencode(){
-        try {
-                Stage currentStage = (Stage) gencodebutton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/GENCODE.fxml"));
-                Stage showGenStage = new Stage();
-                showGenStage.setScene(new Scene(loader.load()));
-                showGenStage.show();
-                currentStage.close();  // Close the current stage
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
-    private void openfixcode(){
-       try {
-                Stage currentStage = (Stage) fixcodebutton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/FIXCODE.fxml"));
-                Stage showGenStage = new Stage();
-                showGenStage.setScene(new Scene(loader.load()));
-                showGenStage.show();
-                currentStage.close();  // Close the current stage
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
+    
     private String UMLFilePath;
     private void browseFileUML(Label label) {
         FileChooser fileChooser = new FileChooser();

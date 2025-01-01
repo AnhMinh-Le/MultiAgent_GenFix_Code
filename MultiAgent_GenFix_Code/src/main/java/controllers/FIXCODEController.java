@@ -15,8 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import javafx.scene.control.Alert;
-public class FIXCODEController {
-
+public class FIXCODEController{
+	@FXML
+    private MainSideButtonController mainSideButtonController;
     @FXML
     private ChoiceBox<String> choicebox;
     private final String[] language ={"java","python","C","C++"};
@@ -29,17 +30,13 @@ public class FIXCODEController {
     private Button nextButton;
     @FXML
     private Label selectedFileLabel1;
-    @FXML
-    private Button gencodebutton;
-    @FXML
-    private Button fixcodebutton;
-    
+
     @FXML
     public void initialize() {
+    	
         choicebox.getItems().addAll(language);
         choicebox.setOnAction(e -> getlanguage());
-        gencodebutton.setOnAction(e -> opengencode());
-        fixcodebutton.setOnAction(e -> openfixcode());
+
         browseButton1.setOnAction(e -> browseFileCode(selectedFileLabel1));
         nextButton.setOnAction(e -> opennextpage());
     }
@@ -75,31 +72,7 @@ public class FIXCODEController {
             e.printStackTrace();
         }
     }
-    private void opengencode() {
-        try {
-            Stage currentStage = (Stage) gencodebutton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/GENCODE.fxml"));
-            Stage showGenStage = new Stage();
-            showGenStage.setScene(new Scene(loader.load()));
-            showGenStage.show();
-            currentStage.close();  // Close the current stage
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     
-    private void openfixcode() {
-        try {
-            Stage currentStage = (Stage) fixcodebutton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/FIXCODE.fxml"));
-            Stage showGenStage = new Stage();
-            showGenStage.setScene(new Scene(loader.load()));
-            showGenStage.show();
-            currentStage.close();  // Close the current stage
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     private String CodeFilePath;
     private void browseFileCode(Label label) {
         FileChooser fileChooser = new FileChooser();

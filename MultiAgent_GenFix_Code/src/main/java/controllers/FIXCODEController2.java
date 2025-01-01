@@ -16,22 +16,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
 public class FIXCODEController2 {
+	@FXML
+    private MainSideButtonController mainSideButtonController;
     @FXML
     private TextArea noteTaskDescriptionArea;
     @FXML
     private TextArea noteFeedBackArea;
     @FXML
     private Button fixbutton;
-    @FXML
-    private Button gencodebutton;
-    @FXML
-    private Button fixcodebutton;
+
 
     private String mycode;
     private String mylanguage;
     public void initialize() {
-        gencodebutton.setOnAction(e -> opengencode());
-        fixcodebutton.setOnAction(e -> openfixcode());
+    	
 //        browseButton1.setOnAction(e -> browseFile(selectedFileLabel1));
         fixbutton.setOnAction(e -> printfixedcode());
     }
@@ -75,31 +73,9 @@ public class FIXCODEController2 {
             }
         }
     }
-    private void opengencode() {
-        try {
-            Stage currentStage = (Stage) gencodebutton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/GENCODE.fxml"));
-            Stage showGenStage = new Stage();
-            showGenStage.setScene(new Scene(loader.load()));
-            showGenStage.show();
-            currentStage.close();  // Close the current stage
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    private void openfixcode() {
-        try {
-            Stage currentStage = (Stage) fixcodebutton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/FIXCODE.fxml"));
-            Stage showGenStage = new Stage();
-            showGenStage.setScene(new Scene(loader.load()));
-            showGenStage.show();
-            currentStage.close();  // Close the current stage
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
+
+   
 //    private void browseFile(Label label) {
 //        FileChooser fileChooser = new FileChooser();
 //        File selectedFile = fileChooser.showOpenDialog(browseButton1.getScene().getWindow());
