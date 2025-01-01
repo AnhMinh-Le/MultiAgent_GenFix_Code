@@ -41,7 +41,7 @@ public class FIXCODEController2 {
         Fixer code = new Fixer(mylanguage);
         staticAnalysisErrors = code.getStaticAnalysisErrors(inputcode);
         String finalcode = code.fixCode(inputcode, taskDescription, report, staticAnalysisErrors);
-        return finalcode;
+        return staticAnalysisErrors;
     }
     public void getCode(String code){
         mycode=code;

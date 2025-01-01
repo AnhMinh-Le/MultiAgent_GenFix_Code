@@ -32,7 +32,7 @@ public class Tester extends Chatter {
             + "Please provide the issue description and fix recommendation in this format:\n\n"
             + "- **Issue Description:** _A detailed description of the code issues and explain their context._\n"
             + "- **Fix Recommendation:** _Your detailed fix recommendation here._\n\n"
-            + "**REMEMBER:** No code generated.";
+            + "**REMEMBER:** You must not generate code.";
     }
 
     public String generateReport(String solution, String issueDescription) throws IOException {
@@ -67,13 +67,11 @@ public class Tester extends Chatter {
                 solution.append(line).append("\n");
             }
             // System.out.println("Solution: " + solution.toString());
+            System.out.println("Hella");
 
-            // Lệnh để chạy Python script
-            String command = "python ../../python/services/analysis_by_command.py"; // Thay "python" bằng "python3" nếu cần
-            
             // Thực thi lệnh
-            @SuppressWarnings("deprecation")
-			Process process = Runtime.getRuntime().exec(command);
+            ProcessBuilder pb = new ProcessBuilder("java", "CodeAnalyzer");
+            Process process = pb.start();
 
             // Đọc output từ Python script
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));

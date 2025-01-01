@@ -1,6 +1,7 @@
 package main.java.services;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -119,7 +120,7 @@ public class Fixer extends Coder {
 
     public String getStaticAnalysisErrors(String code) {
         try {
-            Path dataDir = Paths.get("../resources/data");
+            Path dataDir = Paths.get(".\\src\\main\\resources\\data");
             try {
                 if (Files.exists(dataDir) && Files.isDirectory(dataDir)) {
                     Files.walk(dataDir)
@@ -133,13 +134,13 @@ public class Fixer extends Coder {
                             }
                         });
                 } else {
-                    System.out.println("Directory ../resources/data does not exist or is not a directory.");
+                    System.out.println("Directory /main/resources/data does not exist or is not a directory.");
                 }
             } catch (IOException e) {
                 System.err.println("Error accessing directory: " + e.getMessage());
             }
 
-            String fileName = language.equals("java") ? "code.java" : "code.py";
+            String fileName = language.equals("java") ? "inputcode.java" : "inputcode.py";
             Path filePath = dataDir.resolve(fileName);
 
             try {
@@ -149,11 +150,16 @@ public class Fixer extends Coder {
             } catch (IOException e) {
                 System.err.println("Failed to create file: " + e.getMessage());
             }
-            ProcessBuilder compile = new ProcessBuilder("javac", "Tester.java", "Fixer.java", "Chatter.java");
+            System.out.println("Hello");
+            ProcessBuilder compile = new ProcessBuilder("javac", "-d", "./bin", "CodeAnalyzer.java", "Tester.java", "Chatter.java");
+            compile.directory(new File("./src/main/java/services"));
             compile.start();
-            ProcessBuilder pb = new ProcessBuilder("java", "Tester.java");
-            Process process = pb.start();
 
+            ProcessBuilder pb = new ProcessBuilder("java", "-cp", "./bin", "main.java.services.Tester");
+            pb.directory(new File("./src/main/java/services"));
+            pb.inheritIO(); 
+            Process process = pb.start();
+            System.out.println("Hello");
             OutputStream os = process.getOutputStream();
             PrintWriter writer = new PrintWriter(os, true);
             writer.println(code);
@@ -168,7 +174,7 @@ public class Fixer extends Coder {
                 staticAnalysisErrors = line;
                 // System.out.println("Static Analysis: " + staticAnalysisErrors); 
             }
-            // System.out.println("Static Analysis: " + staticAnalysisErrors);
+//            System.out.println("Static Analysis: " + staticAnalysisErrors);
 
             return staticAnalysisErrors;
         } catch (IllegalArgumentException e) {
@@ -181,9 +187,9 @@ public class Fixer extends Coder {
         return "";
     }
 
-    // public static void main(String[] args) {
-    //     Fixer fixer = new Fixer("java");
-    //     String statics = fixer.getStaticAnalysisErrors("");
-    //     // System.out.println(statics);
-    // }
+//    public static void main(String[] args) {
+//        Fixer fixer = new Fixer("java");
+//        String statics = fixer.getStaticAnalysisErrors("");
+//        // System.out.println(statics);
+//    }
 }

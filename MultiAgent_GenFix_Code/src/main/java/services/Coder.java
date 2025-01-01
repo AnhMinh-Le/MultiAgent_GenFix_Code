@@ -11,7 +11,7 @@ public class Coder extends Chatter {
     private static final Logger logger = Logger.getLogger(Coder.class.getName());
 
     public Coder(String language) {
-        super(getSystemPrompt(language), 3, 5);
+        super(getSystemPrompt(language), 3, 10);
     }
 
     private static String getSystemPrompt(String language) {

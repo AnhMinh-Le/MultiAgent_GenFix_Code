@@ -7,6 +7,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.text.Font;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,6 +25,7 @@ public class SHOWSTRUCTController {
     public void displaystructure(String code) {
         String newCode = code.replace("\\n", "\n").replace("\\t","\t");
 //        System.out.println(newCode);
+        coteTextArea.setFont(Font.font("JetBrains Mono", 14));
         coteTextArea.setText(newCode);
     }
 

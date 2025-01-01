@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.scene.text.Font;
 
 public class ChatBotController{
     @FXML
@@ -50,6 +51,7 @@ public class ChatBotController{
     private void displayanswer(String answer){
         String finalanswer = answer.replace("\\n", "\n").replace("\\t","\t");
 //        System.out.println(newCode);
+        answerArea.setFont(Font.font("Arial", 14));
         answerArea.setWrapText(true);
         answerArea.setText(finalanswer);
     }
