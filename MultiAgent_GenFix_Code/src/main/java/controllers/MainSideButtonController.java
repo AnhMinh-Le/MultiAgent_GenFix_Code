@@ -8,11 +8,40 @@ import javafx.stage.Stage;
 
 public class MainSideButtonController {
 	@FXML
+	protected Button chatbotbutton;
+	@FXML
+	protected Button helperbutton;
+	@FXML
     protected Button gencodebutton;
     @FXML
     protected Button fixcodebutton;
     @FXML
     protected Button projectstructbutton;
+    
+    private void openchatbot() {
+    	try {
+            Stage currentStage = (Stage) chatbotbutton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/ChatBot.fxml"));
+            Stage showGenStage = new Stage();
+            showGenStage.setScene(new Scene(loader.load()));
+            showGenStage.show();
+              
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    private void openhelper() {
+        try {
+            Stage currentStage = (Stage) helperbutton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/Helper.fxml"));
+            Stage showGenStage = new Stage();
+            showGenStage.setScene(new Scene(loader.load()));
+            showGenStage.show();
+              
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void openstructure() {
         try {
             Stage currentStage = (Stage) projectstructbutton.getScene().getWindow();
@@ -50,6 +79,8 @@ public class MainSideButtonController {
              }
      }
     public void initialize() {
+    	chatbotbutton.setOnAction(e -> openchatbot());
+    	helperbutton.setOnAction(e -> openhelper());
     	gencodebutton.setOnAction(e -> opengencode());
         fixcodebutton.setOnAction(e -> openfixcode());
         projectstructbutton.setOnAction(e -> openstructure());

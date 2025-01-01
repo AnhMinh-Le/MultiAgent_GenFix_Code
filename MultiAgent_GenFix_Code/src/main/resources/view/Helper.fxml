@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" style="-fx-padding: 20; -fx-background-color: linear-gradient(to bottom, #4a90e2, #1c3a57);" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.HelperController">
+
+    <Hyperlink fx:id="visitDocumentation" style="-fx-text-fill: white; -fx-font-size: 16;" text="Visit Documentation" />
+    <Hyperlink fx:id="contactSupport" style="-fx-text-fill: white; -fx-font-size: 16;" text="Contact Support" />
+
+</VBox>

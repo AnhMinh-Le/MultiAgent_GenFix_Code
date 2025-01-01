@@ -39,6 +39,7 @@ public class FIXCODEController2 {
     }
     private String printfixcode(String inputcode, String taskDescription, String report, String staticAnalysisErrors) throws IOException{
         Fixer code = new Fixer(mylanguage);
+        staticAnalysisErrors = code.getStaticAnalysisErrors(inputcode);
         String finalcode = code.fixCode(inputcode, taskDescription, report, staticAnalysisErrors);
         return finalcode;
     }
