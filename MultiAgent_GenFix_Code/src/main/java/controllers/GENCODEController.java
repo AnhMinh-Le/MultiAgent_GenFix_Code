@@ -1,19 +1,26 @@
 package main.java.controllers;
 
+import main.java.services.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import java.io.File;
+import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
 
-public class GENCODEController {
-
+public class GENCODEController{
+	@FXML
+    private MainSideButtonController mainSideButtonController;
     @FXML
     private Button browseButton1;
     @FXML
@@ -25,58 +32,39 @@ public class GENCODEController {
     @FXML
     private Label selectedFileLabel1;
     @FXML
-    private Label selectedFileLabel2;
-    @FXML
-    private Button gencodebutton;
-    @FXML
-    private Button fixcodebutton;
+    private Label selectedFileLabel2; 
 
     @FXML
+    private ChoiceBox<String> choicebox;
+    private final String[] language ={"JAVA","PYTHON"};
+    private String myLanguage;
     public void initialize() {
-        gencodebutton.setOnAction(e -> opengencode());
-        fixcodebutton.setOnAction(e -> openfixcode());
+    	
+        choicebox.getItems().addAll(language);
+        choicebox.setOnAction(e -> getlanguage());
         browseButton1.setOnAction(e -> browseFileUML(selectedFileLabel1));
         browseButton2.setOnAction(e -> browseFileTD(selectedFileLabel2));
         generateButton.setOnAction(e -> printgenerateCode());
-    }
         
-    private void opengencode(){
-        try {
-                Stage currentStage = (Stage) gencodebutton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/GENCODE.fxml"));
-                Stage showGenStage = new Stage();
-                showGenStage.setScene(new Scene(loader.load()));
-                showGenStage.show();
-                currentStage.close();  // Close the current stage
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
     }
-    private void openfixcode(){
-       try {
-                Stage currentStage = (Stage) fixcodebutton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/FIXCODE.fxml"));
-                Stage showGenStage = new Stage();
-                showGenStage.setScene(new Scene(loader.load()));
-                showGenStage.show();
-                currentStage.close();  // Close the current stage
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    private void getlanguage(){
+        myLanguage = choicebox.getValue();
     }
-    private String UMLFilePath;
+    
+    private String UMLFilePath =  "";
     private void browseFileUML(Label label) {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(browseButton1.getScene().getWindow());
 
         if (selectedFile != null) {
+     
             UMLFilePath = selectedFile.getAbsolutePath();
             label.setText(UMLFilePath);
 //            label.setText(selectedFile.getName());
             showAlert("File selected: " + UMLFilePath);
         }
     }
-    private String TDFilePath;
+    private String TDFilePath = "";
     private void browseFileTD(Label label) {
         FileChooser fileChooser = new FileChooser();
         File selectedFile = fileChooser.showOpenDialog(browseButton2.getScene().getWindow());
@@ -88,18 +76,22 @@ public class GENCODEController {
             showAlert("File selected: " + TDFilePath);
         }
     }
-    private String generatecode(){
-        String GeneratedCode = """
-                               
-                              String output = Coder.ham(input(
-                               
-            // Example Code
-            public class Test {
-                public static void main(String[] args) {
-                    System.out.println("Generated code for testing purposes.");
-                }
-            }
-        """;
+    private String openfile(String path) throws IOException{
+        Path filePath = Path.of(path);
+        return Files.readString(filePath, StandardCharsets.UTF_8);
+    }
+    private String generatecode(String language) throws IOException{
+        Coder code = new Coder(language);
+        String Description = "";
+        if(UMLFilePath == "") {
+            Description = openfile(TDFilePath);
+        }
+        else {
+        	DescriptionExtractor extractor = new DescriptionExtractor();
+        	Description = extractor.extractAndSaveDescription(UMLFilePath);
+        }
+        
+        String GeneratedCode = code.generateCode(Description, language);
         return GeneratedCode;
     }
     private void printgenerateCode() {
@@ -108,7 +100,7 @@ public class GENCODEController {
 
         if ((file1.isEmpty() || file1.equals("No file selected")) &&
             (file2.isEmpty() || file2.equals("No file selected"))) {
-            showAlert("Please select at least one file (UML or Task Description).");
+            showAlert("Please select one file (UML or Task Description).");
         } else {
             try {
                 Stage currentStage = (Stage) generateButton.getScene().getWindow();
@@ -118,7 +110,7 @@ public class GENCODEController {
                 showGenStage.show();
 
                 SHOWGENCODEController showGenController = loader.getController();
-                String code = generatecode(); // Take the generated code
+                String code = generatecode(myLanguage); // Take the generated code
                 showGenController.displayGeneratedCode(code);
 
                 currentStage.close();  // Close the current stage

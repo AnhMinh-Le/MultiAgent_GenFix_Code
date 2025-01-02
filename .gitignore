@@ -30,3 +30,5 @@ replay_pid*
 /JavaFXApplication9/nbproject/private/
 /MultiAgent_GenFix_Code/build/
 /MultiAgent_GenFix_Code/dist/
+/.metadata/
+MultiAgent_GenFix_Code/src/main/java/services/Chatter.java

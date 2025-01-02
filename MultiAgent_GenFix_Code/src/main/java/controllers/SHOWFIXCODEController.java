@@ -7,6 +7,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.text.Font;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,53 +16,32 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 public class SHOWFIXCODEController {
-
+	@FXML
+    private MainSideButtonController mainSideButtonController;
     @FXML
     private TextArea coteTextArea;
     @FXML
     private Button saveButton;
-    @FXML
-    private Button gencodebutton;
-    @FXML
-    private Button fixcodebutton;
 
     @FXML
     public void initialize() {
         saveButton.setOnAction(e -> saveCodeToFile());
-        gencodebutton.setOnAction(e -> opengencode());
-        fixcodebutton.setOnAction(e -> openfixcode());
+       
     }
-    private void opengencode(){
-        try {
-                Stage currentStage = (Stage) gencodebutton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/GENCODE.fxml"));
-                Stage showGenStage = new Stage();
-                showGenStage.setScene(new Scene(loader.load()));
-                showGenStage.show();
-                currentStage.close();  // Close the current stage
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
-    private void openfixcode(){
-       try {
-                Stage currentStage = (Stage) fixcodebutton.getScene().getWindow();
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/resources/view/FIXCODE.fxml"));
-                Stage showGenStage = new Stage();
-                showGenStage.setScene(new Scene(loader.load()));
-                showGenStage.show();
-                currentStage.close();  // Close the current stage
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-    }
-    public void displayGeneratedCode(String code) {
-        coteTextArea.setText(code);
+
+   
+    public void displayFixedCode(String code) {
+        String newCode = code.replace("\\n", "\n").replace("\\t","\t");
+        coteTextArea.setFont(Font.font("JetBrains Mono", 14));
+        coteTextArea.setText(newCode);
     }
 
     private void saveCodeToFile() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Java Files", "*.java"));
+        fileChooser.getExtensionFilters().addAll(
+        	    new FileChooser.ExtensionFilter("Java Files", "*.java"),
+        	    new FileChooser.ExtensionFilter("Python Files", "*.py")
+        	    );
         File saveFile = fileChooser.showSaveDialog(saveButton.getScene().getWindow());
 
         if (saveFile != null) {

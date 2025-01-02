@@ -3,67 +3,16 @@
 <?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="850.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.FIXCODEController">
-   <children>
-      <VBox prefHeight="588.0" prefWidth="322.0" stylesheets="@../style/style.css">
-         <children>
-            <AnchorPane fx:id="left_side_panel" prefHeight="588.0" prefWidth="208.0">
-               <children>
-                  <Button fx:id="gencodebutton" layoutX="30.0" layoutY="316.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="246.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="GEN CODE" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.80000000000001">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" smooth="false">
-                           <image>
-                              <Image url="@../images/gears_006%20%5BConverted%5D.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="fixcodebutton" layoutX="2.0" layoutY="418.0" mnemonicParsing="false" prefHeight="62.0" prefWidth="221.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="FIX CODE" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0">
-                     <font>
-                        <Font name="System Bold" size="18.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" smooth="false">
-                           <image>
-                              <Image url="@../images/vecteezy_craftsman-tool-icon-wrench-and-screwdriver-sign-and-symbol-vector_%20%5BConverted%5D.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Separator layoutX="23.0" layoutY="265.0" prefWidth="200.0" />
-                  <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="48.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="40.0">
-                     <image>
-                        <Image url="@../images/vecteezy_modern-hexagon-technology-logo-design-vector-template_8249499%20%5BConverted%5D.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </children>
-         <styleClass>
-            <String fx:value="gradient-background" />
-            <String fx:value="round" />
-            <String fx:value="shadow" />
-         </styleClass>
-      </VBox>
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.FIXCODEController">
+   <children> 
+       <fx:include fx:id="mainSideButton" source="MainSideButton.fxml" />
       <HBox prefHeight="588.0" prefWidth="681.0" styleClass="white_background" stylesheets="@../style/style.css">
          <children>
             <AnchorPane prefHeight="588.0" prefWidth="672.0">
@@ -77,7 +26,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="nextButton" layoutX="177.0" layoutY="388.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="150.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="NEXT" textFill="WHITE" AnchorPane.bottomAnchor="21.600000000000023">
+                        <Button fx:id="nextButton" layoutX="211.0" layoutY="399.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="150.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="NEXT" textFill="WHITE" AnchorPane.bottomAnchor="23.0">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -90,7 +39,13 @@
                               <Label fx:id="selectedFileLabel1" style="-fx-text-fill: #7f8c8d;" text="No file selected" />
                            </children>
                         </HBox>
-                        <Label layoutX="20.0" layoutY="309.0" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="or">
+                        <Label layoutX="20.0" layoutY="317.0" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="or">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="choicebox" layoutX="470.0" layoutY="325.0" prefHeight="3.0" prefWidth="82.0" />
+                        <Label layoutX="395.0" layoutY="328.0" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="Language">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -102,7 +57,7 @@
                         <String fx:value="blue1" />
                      </styleClass>
                   </AnchorPane>
-                  <Label layoutX="209.0" layoutY="14.0" text="FIX CODE" textFill="#1a2d42">
+                  <Label layoutX="243.0" layoutY="14.0" text="FIX CODE" textFill="#1a2d42">
                      <font>
                         <Font name="System Bold" size="42.0" />
                      </font>

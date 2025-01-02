@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="588.0" prefWidth="322.0" stylesheets="@../style/style.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.MainSideButtonController">
+    <children>
+        <AnchorPane fx:id="left_side_panel" prefHeight="588.0" prefWidth="208.0">
+            <children>
+                <Button fx:id="gencodebutton" layoutX="30.0" layoutY="385.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="246.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="GEN CODE" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" smooth="false">
+                            <image>
+                                <Image url="@../images/gears_006%20%5BConverted%5D.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="fixcodebutton" layoutX="30.0" layoutY="478.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="221.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="FIX CODE" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <graphic>
+                        <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" smooth="false">
+                            <image>
+                                <Image url="@../images/vecteezy_craftsman-tool-icon-wrench-and-screwdriver-sign-and-symbol-vector_%20%5BConverted%5D.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Separator layoutX="30.0" layoutY="170.0" prefWidth="200.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" />
+                <ImageView fitHeight="136.0" fitWidth="124.0" layoutX="99.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="439.1474838256836" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="99.0">
+                    <image>
+                        <Image url="@../images/vecteezy_modern-hexagon-technology-logo-design-vector-template_8249499%20%5BConverted%5D.png" />
+                    </image>
+                </ImageView>
+            <Button fx:id="projectstructbutton" layoutX="38.0" layoutY="294.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="246.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="PROJECT STRUCT" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../images/parallel-tasks.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="chatbotbutton" layoutX="30.0" layoutY="202.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="246.0" styleClass="gen_fix_button" stylesheets="@../style/style.css" text="CHATBOT" textFill="WHITE" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="35.0" fitWidth="36.0" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../images/message-bot.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="helperbutton" layoutX="8.0" layoutY="565.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="HELPER?" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="9.0" />
+               </font>
+            </Button>
+            </children>
+        </AnchorPane>
+    </children>
+    <styleClass>
+        <String fx:value="gradient-background" />
+        <String fx:value="round" />
+        <String fx:value="shadow" />
+    </styleClass>
+</VBox>
