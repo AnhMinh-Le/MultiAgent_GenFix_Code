@@ -30,7 +30,7 @@ The MultiAgent_GenFix_Code project is a suite of Java-based tools designed to st
 - **CHATBOT**: Provides interactive support by answering questions about a project based on a description text file.
 - **STRUCTURE**: Generates a project structure based on a description text file.
 
-## Components
+## Features
 
 ### GEN CODE
 - **Purpose**: Generates code from a UML diagram (PNG) or text description.
