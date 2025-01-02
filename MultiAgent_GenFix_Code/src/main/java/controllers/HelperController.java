@@ -18,7 +18,7 @@ public class HelperController {
     @FXML
     public void initialize() {
         // Set actions for the hyperlinks
-        visitDocumentation.setOnAction(e -> openLink("https://documentation.example.com"));
+        visitDocumentation.setOnAction(e -> openLink("https://github.com/alejoalvarez/oop"));
         contactSupport.setOnAction(e -> openLink("https://support.example.com"));
     }
 

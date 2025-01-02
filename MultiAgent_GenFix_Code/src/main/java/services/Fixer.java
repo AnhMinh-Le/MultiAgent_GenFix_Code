@@ -1,6 +1,9 @@
 package main.java.services;
 
 import java.io.BufferedReader;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,6 +11,9 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.util.logging.Logger;
+
+import main.resources.data.BankAccount;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.OutputStream;
@@ -117,10 +123,25 @@ public class Fixer extends Coder {
     private boolean isNullOrEmpty(String str) {
         return str == null || str.trim().isEmpty();
     }
+    
+    public static String getJavaFileName(String javaCode) {
+        // Biểu thức chính quy để tìm lớp public
+        String regex = "public\\s+class\\s+(\\w+)";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(javaCode);
+        
+        if (matcher.find()) {
+            String className = matcher.group(1);
+            return className + ".java";
+        } else {
+            // Nếu không tìm thấy lớp public, có thể kiểm tra các lớp khác hoặc xử lý theo yêu cầu
+            return "Không tìm thấy lớp public trong đoạn mã.";
+        }
+    }
 
     public String getStaticAnalysisErrors(String code) {
         try {
-            Path dataDir = Paths.get(".\\src\\main\\resources\\data");
+            Path dataDir = Paths.get("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\resources\\data");
             try {
                 if (Files.exists(dataDir) && Files.isDirectory(dataDir)) {
                     Files.walk(dataDir)
@@ -140,7 +161,7 @@ public class Fixer extends Coder {
                 System.err.println("Error accessing directory: " + e.getMessage());
             }
 
-            String fileName = language.equals("java") ? "inputcode.java" : "inputcode.py";
+            String fileName = language.equals("java") ? getJavaFileName(code) : "inputcode.py";
             Path filePath = dataDir.resolve(fileName);
 
             try {
@@ -150,31 +171,62 @@ public class Fixer extends Coder {
             } catch (IOException e) {
                 System.err.println("Failed to create file: " + e.getMessage());
             }
-            System.out.println("Hello");
-            ProcessBuilder compile = new ProcessBuilder("javac", "-d", "./bin", "CodeAnalyzer.java", "Tester.java", "Chatter.java");
-            compile.directory(new File("./src/main/java/services"));
-            compile.start();
+            System.out.println(code);
+            
+            File workingDirectory = new File("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\java\\services");
+            File classpathRoot = new File("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\bin");
+            
+            ProcessBuilder compile = new ProcessBuilder("javac", "Tester.java");
+            compile.directory(workingDirectory).start().waitFor();
 
-            ProcessBuilder pb = new ProcessBuilder("java", "-cp", "./bin", "main.java.services.Tester");
-            pb.directory(new File("./src/main/java/services"));
-            pb.inheritIO(); 
+            ProcessBuilder pb = new ProcessBuilder("java", "-cp", classpathRoot.getAbsolutePath(), "main.java.services.Tester");
+            pb.directory(workingDirectory);
             Process process = pb.start();
-            System.out.println("Hello");
-            OutputStream os = process.getOutputStream();
-            PrintWriter writer = new PrintWriter(os, true);
-            writer.println(code);
-            writer.close();
+            
+            try (OutputStream os = process.getOutputStream();
+                PrintWriter writer = new PrintWriter(os, true)) {
+                writer.println(code);
+                // Đóng writer để báo hiệu kết thúc dữ liệu
+                writer.close();
+            }
 
-            InputStream is = process.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            process.waitFor();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        
+            
+            System.out.println("Hello2");
 
             String line;
             String staticAnalysisErrors = "";
-            while ((line = reader.readLine()) != null) {
-                staticAnalysisErrors = line;
-                // System.out.println("Static Analysis: " + staticAnalysisErrors); 
+            
+            BufferedReader stdOut = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader stdErr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+
+            StringBuilder output = new StringBuilder();
+            StringBuilder errors = new StringBuilder();
+
+            // Đọc stdout
+            while ((line = stdOut.readLine()) != null) {
+                output.append(line).append("\n");
             }
+
+            // Đọc stderr
+            while ((line = stdErr.readLine()) != null) {
+                errors.append(line).append("\n");
+            }
+
+            // Chờ tiến trình hoàn thành
+            int exitCode = process.waitFor();
+            
+            System.out.println("Output:\n" + output.toString());
+            System.out.println("Errors:\n" + errors.toString());
+//            while ((line = reader.readLine()) != null) {
+//                staticAnalysisErrors = line;
+//                 System.out.println("Static Analysis: " + staticAnalysisErrors); 
+//            }
 //            System.out.println("Static Analysis: " + staticAnalysisErrors);
+//            
+//            System.out.println("Hello3");
 
             return staticAnalysisErrors;
         } catch (IllegalArgumentException e) {
@@ -187,9 +239,45 @@ public class Fixer extends Coder {
         return "";
     }
 
-//    public static void main(String[] args) {
-//        Fixer fixer = new Fixer("java");
-//        String statics = fixer.getStaticAnalysisErrors("");
-//        // System.out.println(statics);
-//    }
+    public static void main(String[] args) {
+        Fixer fixer = new Fixer("java");
+        String statics = fixer.getStaticAnalysisErrors("""
+        		
+public class BankAccount {
+    private String accountNumber
+    private String accountHolderName;
+    private dou
+    private String accountType;
+
+    public BankAccount(String  String accountHolderName, doubl{
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = initialBalance;
+        this.accountType = accountType;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) 
+            balance += amount;
+        }
+    
+
+    public void withdraw(double amount) {
+
+        }
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void transferFunds(BankAccount recipient,
+        
+        }
+    }
+}
+
+        		""");
+        // System.out.println(statics);
+    }
 }

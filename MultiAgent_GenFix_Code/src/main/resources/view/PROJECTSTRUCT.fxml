@@ -31,7 +31,18 @@
                               <Cursor fx:constant="HAND" />
                            </cursor></Button>
                         <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="50.0" spacing="10.0" />
-                        <TextArea fx:id="noteTaskDescriptionArea" layoutX="20.0" layoutY="50.0" prefHeight="323.0" prefWidth="532.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                        <TextArea fx:id="noteTaskDescriptionArea" layoutX="20.0" layoutY="115.0" prefHeight="258.0" prefWidth="532.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                        <HBox alignment="CENTER_LEFT" layoutX="20.0" layoutY="50.0" prefHeight="34.0" prefWidth="471.0" spacing="10.0">
+                           <children>
+                              <Button fx:id="browseButton1" mnemonicParsing="false" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 15;" styleClass="browse_button" stylesheets="@../style/style.css" text="Browse" />
+                              <Label fx:id="selectedFileLabel1" style="-fx-text-fill: #7f8c8d;" text="No file selected" />
+                           </children>
+                        </HBox>
+                        <Label layoutX="20.0" layoutY="91.0" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;" text="or">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                      <styleClass>
                         <String fx:value="shadow" />

@@ -24,13 +24,16 @@ public class FIXCODEController2 {
     private TextArea noteFeedBackArea;
     @FXML
     private Button fixbutton;
-
+    @FXML
+    private Button browseButton1;
+    @FXML
+    private Label selectedFileLabel1;
 
     private String mycode;
     private String mylanguage;
     public void initialize() {
     	
-//        browseButton1.setOnAction(e -> browseFile(selectedFileLabel1));
+        browseButton1.setOnAction(e -> browseFile(selectedFileLabel1));
         fixbutton.setOnAction(e -> printfixedcode());
     }
     private String openfile(String path) throws IOException{
@@ -39,9 +42,9 @@ public class FIXCODEController2 {
     }
     private String printfixcode(String inputcode, String taskDescription, String report, String staticAnalysisErrors) throws IOException{
         Fixer code = new Fixer(mylanguage);
-        staticAnalysisErrors = code.getStaticAnalysisErrors(inputcode);
+//        staticAnalysisErrors = code.getStaticAnalysisErrors(inputcode);
         String finalcode = code.fixCode(inputcode, taskDescription, report, staticAnalysisErrors);
-        return staticAnalysisErrors;
+        return finalcode;
     }
     public void getCode(String code){
         mycode=code;
@@ -49,9 +52,10 @@ public class FIXCODEController2 {
     public void getlanguage(String language){
         mylanguage = language;
     }
+    
     private void printfixedcode(){
 
-        if ( noteFeedBackArea.getText().isEmpty() && noteTaskDescriptionArea.getText().isEmpty()) {
+        if ( noteFeedBackArea.getText().isEmpty() && noteTaskDescriptionArea.getText().isEmpty() && TDFilePath == "") {
             showAlert("Please give task description and feedback .");
         } else {
             try {
@@ -63,8 +67,11 @@ public class FIXCODEController2 {
 
                 SHOWFIXCODEController showFixController = loader.getController();
                 String description,feedback;
-                description =noteTaskDescriptionArea.getText();
                 feedback=noteFeedBackArea.getText();
+                if (TDFilePath != "") {
+                	description = openfile(TDFilePath); 
+                }else description =noteTaskDescriptionArea.getText();
+                
                 String code = printfixcode(mycode,description,feedback,""); // Take the generated code
                 showFixController.displayFixedCode(code);
 
@@ -75,19 +82,19 @@ public class FIXCODEController2 {
         }
     }
 
+    
+    private String TDFilePath="";
+    private void browseFile(Label label) {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(browseButton1.getScene().getWindow());
 
-   
-//    private void browseFile(Label label) {
-//        FileChooser fileChooser = new FileChooser();
-//        File selectedFile = fileChooser.showOpenDialog(browseButton1.getScene().getWindow());
-//
-//        if (selectedFile != null) {
-//            TDFilePath = selectedFile.getAbsolutePath();
-//            label.setText(selectedFile.getName());
-//            showAlert("File selected: " + TDFilePath);
-//        }
-//    }
-//    
+        if (selectedFile != null) {
+            TDFilePath = selectedFile.getAbsolutePath();
+            label.setText(selectedFile.getName());
+            showAlert("File selected: " + TDFilePath);
+        }
+    }
+    
     
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

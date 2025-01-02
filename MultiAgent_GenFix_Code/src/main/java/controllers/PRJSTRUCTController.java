@@ -22,12 +22,16 @@ public class PRJSTRUCTController {
     private TextArea noteTaskDescriptionArea;
     @FXML
     private Button createprj;
+    @FXML
+    private Button browseButton1;
+    @FXML
+    private Label selectedFileLabel1;
 
 
     private String mycode;
     public void initialize() {
     	
-//        browseButton1.setOnAction(e -> browseFile(selectedFileLabel1));
+        browseButton1.setOnAction(e -> browseFile(selectedFileLabel1));
         createprj.setOnAction(e -> printstructure());
     }
     private String openfile(String path) throws IOException{
@@ -44,7 +48,7 @@ public class PRJSTRUCTController {
     }
     private void printstructure(){
 
-        if ( noteTaskDescriptionArea.getText().isEmpty()) {
+        if ( noteTaskDescriptionArea.getText().isEmpty() && TDFilePath == "") {
             showAlert("Please give task description and feedback .");
         } else {
             try {
@@ -56,7 +60,9 @@ public class PRJSTRUCTController {
 
                 SHOWSTRUCTController showstructure = loader.getController();
                 String description;
-                description = noteTaskDescriptionArea.getText();
+                if (TDFilePath != "") {
+                	description = openfile(TDFilePath); 
+                }else description =noteTaskDescriptionArea.getText();
                 String code = output(description); // Take the generated code
                 showstructure.displaystructure(code);
 
@@ -67,6 +73,17 @@ public class PRJSTRUCTController {
         }
     }
     
+    private String TDFilePath="";
+    private void browseFile(Label label) {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(browseButton1.getScene().getWindow());
+
+        if (selectedFile != null) {
+            TDFilePath = selectedFile.getAbsolutePath();
+            label.setText(selectedFile.getName());
+            showAlert("File selected: " + TDFilePath);
+        }
+    }
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");

@@ -61,7 +61,7 @@ public class CodeAnalyzer {
     public static Pair<String, String> compilePython(String testDir, String name) {
         List<String> command = new ArrayList<>();
         command.add("pylint");
-        command.add("./src/main/resources/datainputcode.py");
+        command.add("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\resources\\datainputcode.py");
 
         try {
             ProcessBuilder processBuilder = new ProcessBuilder(command);
@@ -76,7 +76,7 @@ public class CodeAnalyzer {
 
     public static String runPylint(String file) {
         if (file.endsWith(".py")) {
-            String testDir = "./src/main/resources/data";
+            String testDir = "D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\resources\\data";
             String name = "inputcode";
             Pair<String, String> outErr = compilePython(testDir, name);
             if (outErr.first != null && !outErr.first.equals("uncompilable")) {
@@ -102,17 +102,17 @@ public class CodeAnalyzer {
     public static String runPMD(String file) {
         if (file.endsWith(".java")) {
             List<String> command = new ArrayList<>();
-            command.add("pmd");
+            command.add("pmd.bat");
             command.add("check");
             command.add("-d");
             command.add(file);
             command.add("-R");
-            command.add("./src/main/resources/checkjava/rulesets-pmd/java/all.xml");
+            command.add("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\resources\\checkjava\\rulesets-pmd\\java\\quickstart.xml");
             command.add("-f");
             command.add("text");
             Pair<String, String> outErr = executeCommand(command, 10);
             if (!outErr.first.isEmpty()) {
-                return "PMD:\n" + outErr.first;
+                return "PMD:\n" + outErr.first + "\n";
             }
         }
         return null;
@@ -123,13 +123,13 @@ public class CodeAnalyzer {
             List<String> command = new ArrayList<>();
             command.add("java");
             command.add("-jar");
-            command.add("./src/main/resources/checkjava/checkstyle/checkstyle-10.9.3-all.jar");
+            command.add("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\resources\\checkjava\\checkstyle\\checkstyle-10.21.1-all.jar");
             command.add("-c");
-            command.add("./src/main/resources/checkjava/checkstyle/sun_checks.xml");
+            command.add("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\resources\\checkjava\\checkstyle\\sun_checks.xml");
             command.add(file);
             Pair<String, String> outErr = executeCommand(command, 10);
             if (!outErr.first.isEmpty()) {
-                return "CHECKSTYLE:\n" + outErr.first;
+                return "CHECKSTYLE:\n" + outErr.first + "\n" + outErr.second;
             }
         }
         return null;
@@ -162,7 +162,7 @@ public class CodeAnalyzer {
     }
 
     public static String getCodePath() {
-        String dataDir = "./src/main/resources/data";
+        String dataDir = "D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\resources\\data";
         try {
             File dir = new File(dataDir);
             if (dir.exists() && dir.isDirectory()) {
@@ -171,8 +171,8 @@ public class CodeAnalyzer {
                     for (File file : files) {
                         if (file.getName().equals("inputcode.py")) {
                             return Paths.get(dataDir, "inputcode.py").toString();
-                        } else if (file.getName().equals("inputcode.java")) {
-                            return Paths.get(dataDir, "inputcode.java").toString();
+                        } else if (file.getName().endsWith(".java")) {
+                            return Paths.get(dataDir, file.getName()).toString();
                         }
                     }
                 }
@@ -185,10 +185,12 @@ public class CodeAnalyzer {
 
     public static void main(String[] args) {
         String codePath = getCodePath();
+        System.out.println(codePath);
         if (codePath == null) {
-            System.out.println("No inputcode.py or inputcode.java file found in the specified directory.");
+            System.out.println("No .py or .java file found in the specified directory.");
             return;
         }
+        System.out.println(codePath);
         String results = analyzeCode(codePath);
         System.out.println(results);
     }

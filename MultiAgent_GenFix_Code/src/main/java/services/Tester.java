@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Logger;
 
+import main.resources.data.BankAccount;
+
 public class Tester extends Chatter {
     private static final Logger logger = Logger.getLogger(Tester.class.getName());
 
@@ -48,45 +50,85 @@ public class Tester extends Chatter {
     }
 
     public static void main(String[] args) {
-        // String outputDirectory = "E:\\Github Repo\\OOP_MultiAgen_GenFix_Code\\data\\generated_code";
-        // String productDescription = """
-        //     The system is a library management platform designed to handle books, borrowers, and loans. The platform includes the following components:
-
-        //     1. The `Book` class represents the books in the library.
-        //        - Attributes:
-        //          - `bookID`: A unique identifier for the book.
-        //          - `title`: The title of the book.
-        //          - `author`: The author of the book.
-        //     """;
-
         try {
-            String line;
-            BufferedReader readerFixer = new BufferedReader(new InputStreamReader(System.in));
-            StringBuilder solution = new StringBuilder();
-            while ((line = readerFixer.readLine()) != null) {
-                solution.append(line).append("\n");
+        	System.out.println("1");
+        	StringBuilder solution = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+                String line;
+                // Đọc tất cả các dòng từ Standard Input
+                while ((line = reader.readLine()) != null) {
+                    solution.append(line).append("\n");
+                }
+            } catch (IOException e) {
+                System.err.println("Error reading input: " + e.getMessage());
+                e.printStackTrace();
             }
-            // System.out.println("Solution: " + solution.toString());
-            System.out.println("Hella");
+        	
+//        	String solution = """
+//        			
+//public class BankAccount {
+//    private String accountNumber
+//    private String accountHolderName;
+//    private dou
+//    private String accountType;
+//
+//    public BankAccount(String  String accountHolderName, doubl{
+//        this.accountNumber = accountNumber;
+//        this.accountHolderName = accountHolderName;
+//        this.balance = initialBalance;
+//        this.accountType = accountType;
+//    }
+//
+//    public void deposit(double amount) {
+//        if (amount > 0)
+//            balance += amount;
+//        }
+//
+//
+//    public void withdraw(double amount) {
+//
+//        }
+//    }
+//
+//    public double getBalance() {
+//        return balance;
+//    }
+//
+//    public void transferFunds(BankAccount recipient,
+//
+//        }
+//    }
+//}
+//
+//
+//        			""";
+            
+             System.out.println("Solution: " + solution.toString());
+            
+            File workingDirectory = new File("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\src\\main\\java\\services");
+            File classpathRoot = new File("D:\\MultiAgent_GenFix_Code\\MultiAgent_GenFix_Code\\bin");
+            
+            ProcessBuilder processBuilder = new ProcessBuilder("java", "-cp", classpathRoot.getAbsolutePath(), "main.java.services.CodeAnalyzer");
+            
+            processBuilder.directory(workingDirectory);
 
-            // Thực thi lệnh
-            ProcessBuilder pb = new ProcessBuilder("java", "CodeAnalyzer");
-            Process process = pb.start();
+            processBuilder.environment().putAll(System.getenv());
+            
+            Process runProcess = processBuilder.start();
 
-            // Đọc output từ Python script
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(runProcess.getInputStream()));
             StringBuilder output = new StringBuilder();
+            String line = "";
             while ((line = reader.readLine()) != null) {
                 output.append(line).append("\n");
             }
+            int exitCode = runProcess.waitFor();
 
-            // Đợi process hoàn tất và lấy mã thoát
-            int exitCode = process.waitFor();
-
-            // System.out.println("Python Output:\n" + output.toString());
-            // System.out.println("Exit Code: " + exitCode);
+//             System.out.println("Python Output:\n" + output.toString());
+//             System.out.println("Exit Code: " + exitCode);
 
             Tester tester = new Tester("java");
+            System.out.println("Check Tester");
             String report = tester.generateReport(solution.toString(), output.toString());
 
             System.out.println(report);
