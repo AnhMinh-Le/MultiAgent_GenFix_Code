@@ -62,7 +62,7 @@ The MultiAgent_GenFix_Code project is a suite of Java-based tools designed to st
 
 #### Clone the Repository:
 ```bash
-git clone https://github.com/yourusername/MultiAgent_GenFix_Code.git
+git clone https://github.com/AnhMinh-Le/MultiAgent_GenFix_Code.git
 ```
 
 #### Import into Eclipse:
